@@ -33,7 +33,11 @@ export const MONITOR_TYPE = {
   CLUSTER_METRICS: 'cluster_metrics_monitor',
   DOC_LEVEL: 'doc_level_monitor',
   COMPOSITE_LEVEL: 'composite',
+  ACTIVE_RESPONSE: 'active_response_monitor', // Wazuh
 };
+
+// Wazuh: Index pattern for findings indices used by Active Response monitors
+export const ACTIVE_RESPONSE_FINDINGS_INDEX_PATTERN = 'wazuh-findings*';
 
 export const DESTINATION_ACTIONS = {
   UPDATE_DESTINATION: 'update-destination',
@@ -105,6 +109,7 @@ export const monitorTypesForComposition = new Set([
   MONITOR_TYPE.BUCKET_LEVEL,
   MONITOR_TYPE.DOC_LEVEL,
   MONITOR_TYPE.QUERY_LEVEL,
+  MONITOR_TYPE.ACTIVE_RESPONSE, // Wazuh
 ]);
 
 export const PLUGIN_AUGMENTATION_ENABLE_SETTING = 'visualization:enablePluginAugmentation';

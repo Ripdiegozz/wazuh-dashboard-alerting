@@ -31,6 +31,7 @@ const onChangeDefinition = (e, form) => {
     case MONITOR_TYPE.CLUSTER_METRICS:
       form.setFieldValue('searchType', SEARCH_TYPE.CLUSTER_METRICS);
       break;
+    case MONITOR_TYPE.ACTIVE_RESPONSE: // Wazuh: Handle Active Response monitor type
     case MONITOR_TYPE.DOC_LEVEL:
       form.setFieldValue('query', DEFAULT_DOCUMENT_LEVEL_QUERY);
       break;
@@ -71,6 +72,14 @@ const compositeLevelDescription = (
   <EuiText color={'subdued'} size={'xs'} style={{ paddingBottom: '10px', paddingTop: '0px' }}>
     Composite monitors chain the outputs of different monitor types and focus trigger conditions to
     reduce alert noise and generate finer results.
+  </EuiText>
+);
+
+// Wazuh: Add description for Active Response monitor type
+const activeResponseDescription = (
+  <EuiText color={'subdued'} size={'xs'} style={{ paddingBottom: '10px', paddingTop: '0px' }}>
+    Active Response monitors trigger active responses when documents match the trigger
+    conditions.
   </EuiText>
 );
 
@@ -146,6 +155,21 @@ const MonitorType = ({ values }) => (
             onChange: (e, field, form) => onChangeDefinition(e, form),
             children: compositeLevelDescription,
             'data-test-subj': 'compositeLevelMonitorRadioCard',
+          }}
+        />
+      </EuiFlexItem>
+      {/* Wazuh: Add Active Response monitor type card */}
+      <EuiFlexItem grow={false} style={{ width: 350 }}>
+        <FormikCheckableCard
+          name="monitorTypeActiveResponse"
+          inputProps={{
+            id: 'activeResponseMonitorRadioCard',
+            label: 'Active Response',
+            checked: values.monitor_type === MONITOR_TYPE.ACTIVE_RESPONSE,
+            value: MONITOR_TYPE.ACTIVE_RESPONSE,
+            onChange: (e, field, form) => onChangeDefinition(e, form),
+            children: activeResponseDescription,
+            'data-test-subj': 'activeResponseMonitorRadioCard',
           }}
         />
       </EuiFlexItem>
